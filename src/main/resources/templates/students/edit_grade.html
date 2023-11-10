@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Изменить оценку</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/students/{stud_id}/grades/{grade_id}/edit(stud_id=${stud_id}, grade_id=${grade_id})}" th:object="${grade}">
+    <label for="grade" th:text="${grade.getSubject().getName()}"></label>
+    <select id="grade" th:field="*{value}">
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select>
+    <div style="color: red;" th:if="${#fields.hasErrors('value')}" th:errors="*{value}">Value error</div>
+    <br>
+    <input type="submit" value="Изменить">
+</form>
+</body>
+</html>

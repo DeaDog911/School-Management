@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cписок учителей</title>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <td>Номер</td>
+        <td>ФИО</td>
+        <td>Номер кабинета</td>
+        <td>Классы
+        <td>Предметы</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="teacher, i : ${teachers}">
+        <td th:text="${i.count}"></td>
+        <td th:text="${teacher.getName()}"></td>
+        <td th:if="${teacher.getClassroom() == 0}" th:text="'Нет'"></td>
+        <td th:if="${teacher.getClassroom() != 0}" th:text=""></td>
+        <td>
+            <span th:each="class : ${teacher.getStudyClasses()}" th:text="${class.getNumber()} + ' '"></span>
+        </td>
+        <td>
+            <p th:each="subject : ${teacher.getSubjects()}" th:text="${subject.getName()}"></p>
+        </td>
+        <td><a th:href="@{/teachers/{id}/edit(id=${teacher.getId()})} ">Изменить</a></td>
+        <td>
+            <form th:action="@{/teachers/{id}/delete(id=${teacher.getId()})}" th:method="POST">
+                <input type="submit" value="Удалить">
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<p><a th:href="@{/teachers/new}">Добавить учителя</a></p>
+</body>
+</html>

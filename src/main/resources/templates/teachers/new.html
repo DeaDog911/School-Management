@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Добавить учителя</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/teachers}" th:object="${teacher}">
+    <label for="name">ФИО</label>
+    <input type="text" id="name" th:field="*{name}">
+    <div style="color: red;" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
+    <br>
+    <label for="classroom">Номер кабинета</label>
+    <input type="text" id="classroom" th:field="*{classroom}">
+    <div style="color: red;" th:if="${#fields.hasErrors('classroom')}" th:errors="*{classroom}">Classroom error</div>
+    <br>
+    <label>Преподаваемые предметы</label>
+    <p th:each="subject: ${subjects}"><input type="checkbox" th:text="${subject.getName()}" th:value="${subject.getName()}" th:field="*{subjects}" name="subjects"></p>
+    <label>Обучаемые классы</label>
+    <p th:each="studyClass: ${studyClasses}"><input type="checkbox" th:text="${studyClass.getNumber()}"  th:value="${studyClass.getNumber()}" th:field="*{studyClasses}" name="studyClasses"></p>
+
+    <input type="submit" value="Добавить">
+</form>
+</body>
+</html>

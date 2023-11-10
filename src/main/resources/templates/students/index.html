@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cписок студентов</title>
+</head>
+<body>
+<table>
+    <thead>
+        <tr>
+            <td>Номер</td>
+            <td>ФИО</td>
+            <td>Класс</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="student, i : ${students}">
+            <td th:text="${i.count}"></td>
+            <td th:text="${student.getName()}"></td>
+            <td th:if="${student.getStudyClass() != null}" th:text="${student.getStudyClass().getNumber()}"></td>
+            <td th:if="${student.getStudyClass() == null}">null</td>
+            <td><a th:href="@{/students/{id}/grades(id=${student.getId()})} ">Оценки</a></td>
+            <td><a th:href="@{/students/{id}/edit(id=${student.getId()})} ">Изменить</a></td>
+            <td>
+                <form th:action="@{/students/{id}/delete(id=${student.getId()})}" th:method="POST">
+                    <input type="submit" value="Удалить">
+                </form>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<p><a th:href="@{/students/new}">Добавить студента</a></p>
+<p><a th:href="@{/students/classes/new}">Добавить класс</a></p>
+<p><a th:href="@{/students/subjects/new}">Добавить предмет</a></p>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Оценки ученика</title>
+</head>
+<body>
+<table>
+    <thead>
+        <tr>
+            <td>Предмет</td>
+            <td>Оценка</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="grade : ${student.getGrades()}">
+            <td th:text="${grade.getSubject().getName()}"></td>
+            <td><a th:href="@{/students/{stud_id}/grades/{grade_id}/edit(stud_id=${student.getId()}, grade_id=${grade.getId()})}" th:text="${grade.getValue()}"></a></td>
+        </tr>
+    </tbody>
+</table>
+<hr>
+<p>Добавить оценку</p>
+<form th:action="@{/students/{id}/grades(id=${student.getId()})}" th:method="POST" th:object="${grade}">
+    <label for="subject">Предмет</label>
+    <select id="subject" th:field="*{subject}">
+        <option th:each="subject : ${subjects}" th:value="${subject.getId()}" th:text="${subject.getName()}"></option>
+    </select>
+    <div style="color: red;" th:if="${#fields.hasErrors('subject')}" th:errors="*{subject}">Subject error</div>
+    <br>
+    <label for="value">Оценка</label>
+    <select id="value" th:field="*{value}">
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select>
+    <div style="color: red;" th:if="${#fields.hasErrors('value')}" th:errors="*{value}">Value error</div>
+    <br>
+    <input type="submit" value="Добавить">
+</form>
+</body>
+</html>

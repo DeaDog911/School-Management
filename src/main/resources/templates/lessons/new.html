@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form th:method="POST" th:action="@{/lesosns/new}" th:object="${lesson}">
+    <label for="studyClass">Класс</label>
+    <select id="studyClass" th:field="*{studyClass}">
+        <option th:each="class : ${studyClasses}" th:value="${class.getId()}" th:text="${class.getNumber()}"></option>
+    </select>
+    <br>
+    <label for="classroom">Номер кабинета</label>
+    <input id="classroom" th:field="*{classroom}">
+    <br>
+    <label for="dayOfWeek">День недели</label>
+    <select id="dayOfWeek" th:field="*{dayOfWeek}">
+        <option value="1">Пн</option>
+        <option value="2">Вт</option>
+        <option value="3">Ср</option>
+        <option value="4">Чт</option>
+        <option value="5">Пт</option>
+        <option value="6">Сб</option>
+        <option value="7">Вс</option>
+    </select>
+    <br>
+    <label for="ordinalNumber">Порядковый номер</label>
+    <select id="ordinalNumber" th:field="*{ordinalNumber}">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select>
+    <br>
+    <label for="subject">Предмет</label>
+    <select id="subject" th:field="*{subject}">
+        <option th:each="subject : ${subjects}" th:value="${subject.getId()}" th:text="${subject.getName()}"></option>
+    </select>
+    <br>
+    <label for="teacher">Преподаватель</label>
+    <select id="teacher" th:field="*{teacher}">
+        <option th:each="teacher : ${teachers}" th:value="${teacher.getId()}" th:text="${teacher.getName()}"></option>
+    </select>
+    <br>
+    <input type="submit" th:value="Создать">
+</form>
+
+</body>
+</html>

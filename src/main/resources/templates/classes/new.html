@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить класс</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/students/classes}" th:object="${class}">
+    <label for="number">Номер</label>
+    <input type="text" id="number" th:field="*{number}">
+    <div style="color: red;" th:if="${#fields.hasErrors('number')}" th:errors="*{number}">Name error</div>
+    <br>
+    <input type="submit" value="Добавить">
+</form>
+</body>
+</html>
