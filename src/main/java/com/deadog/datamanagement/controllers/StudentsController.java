@@ -106,17 +106,6 @@ public class StudentsController {
         return "redirect:/students/" + id + "/grades";
     }
 
-    @GetMapping("/classes/new")
-    public String newClass(@ModelAttribute("class") StudyClass studyClass) {
-        return "classes/new";
-    }
-
-    @PostMapping("/classes")
-    public String createStudyClass(@ModelAttribute("class") StudyClass studyClass) {
-        studyClassesService.save(studyClass);
-        return "redirect:/students";
-    }
-
     @GetMapping("/subjects/new")
     public String newSubject(@ModelAttribute("subject") Subject subject) {
         return "subjects/new";

@@ -64,4 +64,8 @@ public class TeachersService {
         teacher.setId(id);
         teachersRepository.save(teacher);
     }
+
+    public int getRoomsCount() {
+        return teachersRepository.getRoomsCount();
+    }
 }

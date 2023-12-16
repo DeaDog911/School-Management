@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Классы</title>
+</head>
+<body>
+<p>Поиск</p>
+<from th:action="@{classes}" th:method="GET">
+    <label for="teacher">
+        <select name="teacher" id="teacher">
+            <option value="-1">-</option>
+            <option th:each="teacher : ${teachers}" th:value="${teacher.getId()}" th:text="${teacher.getName()}"></option>
+        </select>
+    </label>
+    <br>
+    <label for="subject">
+        <select name="subject" id="subject">
+            <option value="-1">-</option>
+            <option th:each="subject : ${subjects}" th:value="${subject.getId()}" th:text="${subject.getName()}"></option>
+        </select>
+    </label>
+    <input type="submit" value="Найти">
+</from>
+<table>
+    <thead>
+    <tr>
+        <td>Номер</td>
+        <td>Номер класса</td>
+        <td>Количество учеников</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="studyClass, i : ${studyClasses}">
+        <td th:text="${i.count}"></td>
+        <td th:text="${studyClass.getNumber()}"></td>
+        <td th:text="${studyClass.getStudentsCount()}"></td>
+        <td><a th:href="@{classes/{id}/edit(id=${studyClass.getId()})}">Изменить</a></td>
+
+        <td>
+            <form th:action="@{classes/{id}/delete(id=${studyClass.getId()})}" method="POST">
+                <input type="submit" value="Удалить">
+            </form></td>
+    </tr>
+    </tbody>
+</table>
+<p><a th:href="@{/classes/new}">Добавить класс</a></p>
+</body>
+</html>

@@ -8,6 +8,80 @@
     <title>Уроки</title>
 </head>
 <body>
+<p>Поиск</p>
+<form th:action="@{lessons}" method="GET">
+    <label for="studyClass">Класс</label>
+    <select id="studyClass" name="studyClass">
+        <option value="-1">-</option>
+        <option th:each="class : ${studyClasses}" th:value="${class.getId()}" th:text="${class.getNumber()}"></option>
+    </select>
+    <br>
+    <label for="dayOfWeek">День недели</label>
+    <select id="dayOfWeek" name="dayOfWeek">
+        <option value="-1">-</option>
+        <option value="1">Пн</option>
+        <option value="2">Вт</option>
+        <option value="3">Ср</option>
+        <option value="4">Чт</option>
+        <option value="5">Пт</option>
+        <option value="6">Сб</option>
+        <option value="7">Вс</option>
+    </select>
+    <br>
+    <label for="ordinalNumber">Порядковый номер</label>
+    <select id="ordinalNumber" name="ordinalNumber">
+        <option value="-1">-</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select>
+    <br>
+    <input type="submit" value="Найти">
+</form>
+<hr>
+<table>
+    <thead>
+    <tr>
+        <td>Класс</td>
+        <td>День недели</td>
+        <td>Порядковый номер</td>
+        <td>Номер кабинета</td>
+        <td>Предмет</td>
+        <td>Преподаватель</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="lesson: ${lessons}">
+        <td th:text="${lesson.getLessonPK().getStudyClass().getNumber()}"></td>
+        <td th:switch="${lesson.getLessonPK().getDayOfWeek()}">
+            <span th:case="1">Пн</span>
+            <span th:case="2">Вт</span>
+            <span th:case="3">Ср</span>
+            <span th:case="4">Чт</span>
+            <span th:case="5">Пт</span>
+            <span th:case="6">Сб</span>
+            <span th:case="7">Вс</span>
+        </td>
+        <td th:text="${lesson.getLessonPK().getOrdinalNumber()}"></td>
+        <td th:text="${lesson.getClassroom()}"></td>
+        <td th:text="${lesson.getSubject().getName()}"></td>
+        <td th:text="${lesson.getTeacher().getName()}"></td>
+        <td><a th:href="@{/lessons/{classId}/{dayOfWeek}/{ordinalNumber}/edit(classId=${lesson.getLessonPK().getStudyClass().getId()},
+                                                                      dayOfWeek=${lesson.getLessonPK().getDayOfWeek()},
+                                                                      ordinalNumber=${lesson.getLessonPK().getOrdinalNumber()})}">Изменить</a></td>
+        <td>
+            <form th:method="POST"
+                  th:action="@{/lessons/{classId}/{dayOfWeek}/{ordinalNumber}/delete(classId=${lesson.getLessonPK().getStudyClass().getId()},
+                                                                      dayOfWeek=${lesson.getLessonPK().getDayOfWeek()},
+                                                                      ordinalNumber=${lesson.getLessonPK().getOrdinalNumber()})}">
+                <input type="submit" th:value="Удалить">
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
 
 <a th:href="@{/lessons/new}">Добавить урок</a>
 

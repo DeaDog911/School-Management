@@ -24,4 +24,7 @@ public class StudyClass {
 
     @ManyToMany(mappedBy = "studyClasses")
     private List<Teacher> teachers;
+
+    @Transient
+    private int studentsCount;
 }

@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en"xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Справка</title>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <td>Номер класса</td>
+        <td>Количество учеников</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="studyClass : ${studyClasses}">
+        <td th:text="${studyClass.getNumber()}"></td>
+        <td th:text="${studyClass.getStudentsCount()}"></td>
+    </tr>
+    </tbody>
+</table>
+<br>
+<table>
+    <thead>
+    <tr>
+        <td>Предмет</td>
+        <td>Количество учителей</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="subject : ${subjects}">
+        <td th:text="${subject.getName()}"></td>
+        <td th:text="${subject.getTeachers().size()}"></td>
+    </tr>
+    </tbody>
+</table>
+<br>
+<p th:text="'Количество кабинетов' + ${roomsCount}"></p>
+<br>
+<p th:text="'Количество двоечников' + ${students2Count}"></p>
+<p th:text="'Количество хорошистов' + ${students4Count}"></p>
+<p th:text="'Количество отличников' + ${students5Count}"></p>
+
+</body>
+</html>

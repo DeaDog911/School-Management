@@ -2,15 +2,15 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Добавить класс</title>
+    <title>Изменить класс</title>
 </head>
 <body>
-<form th:method="POST" th:action="@{/classes}" th:object="${class}">
+<form th:method="POST" th:action="@{/classes/{id}/edit(id=${studyClass.getId()})}" th:object="${studyClass}">
     <label for="number">Номер</label>
     <input type="text" id="number" th:field="*{number}">
     <div style="color: red;" th:if="${#fields.hasErrors('number')}" th:errors="*{number}">Name error</div>
     <br>
-    <input type="submit" value="Добавить">
+    <input type="submit" value="Изменить">
 </form>
 </body>
 </html>
